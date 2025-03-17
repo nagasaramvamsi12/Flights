@@ -20,7 +20,7 @@ async function createFlight(req,res)
                  .status(StatusCodes.CREATED)
                  .json(SuccessResponse);
     }catch(error){
-        ErrorResponse.error=error;
+        ErrorResponse.error=error.message;
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
         .json(ErrorResponse);
     }
