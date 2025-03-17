@@ -1,6 +1,15 @@
 const {StatusCodes}=require('http-status-codes');
 const {ErrorResponse}=require('../utils/common');
+const dateTimeCompare=require('../utils/helpers/datetime-helper');
 const validateCreateRequest=(req,res,next)=>{
+    if(!dateTimeCompare(req.body.arrivalTime,req.body.departureTime))
+    {
+        ErrorResponse.message="something went wrong while creating flight";
+        ErrorResponse.error={explanation:"arrivalTime must be greater than departureTime"};
+        return res
+               .status(StatusCodes.BAD_REQUEST)
+               .json(ErrorResponse)
+    }
     if(!req.body.flightNumber)
     {
         ErrorResponse.message="something went wrong while creatingflightNumber";
